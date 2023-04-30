@@ -15,12 +15,21 @@ public class EmployeeService {
   private static final int LIMIT = 10;
 
   private final List<Employee> employees = new ArrayList<>();
+  private final ValidatorService validatorService;
+
+  public EmployeeService(ValidatorService validatorService) {
+    this.validatorService = validatorService;
+  }
 
   public Employee add(String name,
-      String surname,
-      int department,
-      int salary) {
-    Employee employee = new Employee(name, surname, department, salary);
+                      String surname,
+                      int department,
+                      int salary) {
+    Employee employee = new Employee(
+            validatorService.validateName(name),
+            validatorService.validateSurname(surname),
+            department,
+            salary);
     if (employees.contains(employee)) {
       throw new EmployeeAlreadyAddedException();
     }
