@@ -21,6 +21,7 @@ public class ValidatorService {
             if (!StringUtils.isAlpha(surname)) {
                 throw new IncorrectSurnameException();
             }
+
             surnames[i] = StringUtils.capitalize(surname.toLowerCase());
         }
         return String.join("-", surnames);
